@@ -1,4 +1,4 @@
-FROM lsiobase/alpine.nginx:3.11
+FROM lsiobase/nginx:3.11
 
 # set version label
 ARG BUILD_DATE
@@ -28,8 +28,7 @@ RUN \
  echo "**** fix path to cropper.js ****" && \
  sed -i 's#src="/cropper/#/src="cropper/#' /etc/smokeping/basepage.html && \
  echo "**** install tcping script ****" && \
- install -m755 -D /defaults/tcpping /usr/bin/ && \
-
+ install -m755 -D /defaults/tcpping /usr/bin/
 
 # add local files
 COPY root/ /
