@@ -1,0 +1,33 @@
+## Version 2018/03/06 - Changelog: https://github.com/linuxserver/docker-heimdall/commits/master/root/defaults/default
+
+server {
+	listen 80 default_server;
+
+	listen 443 ssl;
+
+	root /var/www/html/public;
+	index index.php index.html index.htm;
+
+	server_name _;
+
+	ssl_certificate /config/keys/cert.crt;
+	ssl_certificate_key /config/keys/cert.key;
+
+	client_max_body_size 0;
+
+        error_page 599 = @noauth;
+
+	location ~ \.cgi$ {
+		fastcgi_intercept_errors on;
+		root /usr/lib;
+		include /etc/nginx/fastcgi_params;
+		fastcgi_param SCRIPT_FILENAME /usr/lib/cgi-bin/$fastcgi_script_name;
+		fastcgi_pass unix:/var/run/fcgiwrap.socket;
+	}
+
+	location ^~ /smokeping/ {
+		alias /usr/share/smokeping/www/;
+		index smokeping.cgi;
+		gzip off;
+	}
+}

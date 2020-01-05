@@ -1,11 +1,11 @@
-FROM lsiobase/alpine:3.11
+FROM lsiobase/alpine.nginx:3.11
 
 # set version label
 ARG BUILD_DATE
 ARG VERSION
 ARG SMOKEPING_VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
-LABEL maintainer="ironicbadger,sparklyballs"
+LABEL maintainer="homerr,thelamer"
 
 # copy tcpping script
 COPY tcpping /defaults/
@@ -13,9 +13,6 @@ COPY tcpping /defaults/
 RUN \
  echo "**** install packages ****" && \
  apk add --no-cache \
-	apache2 \
-	apache2-ctl \
-	apache2-utils \
 	bc \
 	bind-tools \
 	curl \
@@ -32,8 +29,7 @@ RUN \
  sed -i 's#src="/cropper/#/src="cropper/#' /etc/smokeping/basepage.html && \
  echo "**** install tcping script ****" && \
  install -m755 -D /defaults/tcpping /usr/bin/ && \
- echo "**** remove default apache conf ****" && \
- rm -f /etc/apache2/httpd.conf
+
 
 # add local files
 COPY root/ /

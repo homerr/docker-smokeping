@@ -29,20 +29,13 @@ cd "${PREV_DIR}" || exit
 [[ ! -e /config/site-confs/smokeping.conf ]] && \
 	cp /defaults/smokeping.conf /config/site-confs/smokeping.conf
 
-[[ ! -e /config/httpd.conf ]] && \
-	cp /defaults/httpd.conf /config/httpd.conf
-
-[[ ! -L /etc/apache2/httpd.conf ]] && \
-	ln -sf /config/httpd.conf /etc/apache2/httpd.conf
-
-[[ ! -e /config/smtp.conf ]] && \
-	cp /config/smtp.conf /etc/ssmtp/ssmtp.conf
+[[ ! -e /etc/ssmtp/ssmtp.conf ]] && \
+	cp /config/ssmtp.conf /etc/ssmtp/ssmtp.conf
 
 # permissions
 chown -R abc:abc \
 	/config \
 	/data \
-	/run/apache2 \
 	/usr/share/webapps/smokeping \
 	/var/cache/smokeping \
 	/var/www/localhost/smokeping
