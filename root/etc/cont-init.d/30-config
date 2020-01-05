@@ -26,9 +26,6 @@ cd "${PREV_DIR}" || exit
 [[ ! -L /var/www/localhost/smokeping/cache ]] && \
 	ln -sf	/var/cache/smokeping /var/www/localhost/smokeping/cache
 
-[[ ! -e /config/site-confs/smokeping.conf ]] && \
-	cp /defaults/smokeping.conf /config/site-confs/smokeping.conf
-
 [[ ! -e /etc/ssmtp/ssmtp.conf ]] && \
 	cp /config/ssmtp.conf /etc/ssmtp/ssmtp.conf
 
